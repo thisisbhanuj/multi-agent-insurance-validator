@@ -1,4 +1,3 @@
-````md
 # Agentic Insurance Claim Validator
 
 An end-to-end multimodal insurance claim validation solution built using Agentic AI principles with Snowflake, AWS Bedrock, Snowpark, AI_EXTRACT, Streamlit in Snowflake, and LangGraph.
@@ -10,8 +9,6 @@ The platform validates vehicle insurance claims by processing:
 - Vehicle Damage Image
 
 The workflow combines structured document extraction, multimodal image analysis, policy verification, and intelligent orchestration to determine whether a claim should be approved or rejected.
-
----
 
 # Architecture Overview
 
@@ -26,9 +23,7 @@ The solution is designed around a multi-agent workflow architecture:
 
 The workflow mimics how a human insurance validation team processes claims while leveraging AI-native automation.
 
----
-
-# Key Features
+# Features
 
 - Upload and process:
   - Driver License
@@ -54,10 +49,7 @@ The workflow mimics how a human insurance validation team processes claims while
 
 - Fully serverless cloud-native architecture
 
----
-
 # Technology Stack
-
 | Component | Tool / Service |
 |---|---|
 | Frontend UI | Streamlit in Snowflake |
@@ -70,12 +62,8 @@ The workflow mimics how a human insurance validation team processes claims while
 | Programming Language | Python 3.10+ |
 | Cloud Platform | AWS + Snowflake |
 
----
-
 # Solution Workflow
-
 ## 1. User Upload
-
 Users upload:
 
 - Driver License
@@ -84,10 +72,7 @@ Users upload:
 
 through the Streamlit interface.
 
----
-
 ## 2. File Upload to Snowflake Stage
-
 Uploaded files are stored in Snowflake internal stages:
 
 ```text
@@ -95,8 +80,6 @@ DL/
 CLAIMS/
 CAR/
 ````
-
----
 
 ## 3. Driver License Extraction
 
@@ -106,8 +89,6 @@ Snowflake AI_EXTRACT extracts:
 * Driver License Number
 * Date of Birth
 * Address
-
----
 
 ## 4. Claim Form Extraction
 
@@ -121,7 +102,6 @@ Snowflake AI_EXTRACT extracts:
 * Vehicle Information
 * Incident Description
 
----
 
 ## 5. Vehicle Image Analysis
 
@@ -131,7 +111,6 @@ Vehicle image is analyzed using AWS Bedrock Nova Lite to identify:
 * Damage Description
 * Damage Severity
 
----
 
 ## 6. Policy Validation
 
@@ -142,8 +121,6 @@ Validation includes:
 * VIN verification
 * Policy expiry validation
 * Customer reference checks
-
----
 
 ## 7. Intelligent Comparison Engine
 
@@ -157,8 +134,6 @@ The workflow compares extracted data across all sources:
 | Vehicle Color Match | Claim vs Car Image               |
 | Policy Validity     | Incident Date vs Policy End Date |
 
----
-
 ## 8. Final Decision
 
 The workflow determines whether the claim is:
@@ -167,8 +142,6 @@ The workflow determines whether the claim is:
 * REJECTED
 
 The final decision and validation breakdown are displayed in the Streamlit UI.
-
----
 
 # UI Output Example
 
@@ -183,10 +156,7 @@ The final decision and validation breakdown are displayed in the Streamlit UI.
 }
 ```
 
----
-
 ## Extracted Driver License Data
-
 ```json
 {
   "full_name": "James William Carter",
@@ -195,8 +165,6 @@ The final decision and validation breakdown are displayed in the Streamlit UI.
   "address": "12 Collins Street, Melbourne VIC 3000"
 }
 ```
-
----
 
 ## Extracted Claim Data
 
@@ -211,8 +179,6 @@ The final decision and validation breakdown are displayed in the Streamlit UI.
 }
 ```
 
----
-
 ## Car Analysis Output
 
 ```json
@@ -222,8 +188,6 @@ The final decision and validation breakdown are displayed in the Streamlit UI.
   "severity": "Minor"
 }
 ```
-
----
 
 # Repository Structure
 
@@ -237,8 +201,6 @@ The final decision and validation breakdown are displayed in the Streamlit UI.
 └── assets/
 ```
 
----
-
 # Getting Started
 
 ## 1. Clone Repository
@@ -248,8 +210,6 @@ git clone https://github.com/thisisbhanuj/multi-agent-insurance-validator.git
 cd multi-agent-insurance-validator
 ```
 
----
-
 ## 2. Create Virtual Environment
 
 ```bash
@@ -257,15 +217,11 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
----
-
 ## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
-
----
 
 ## 4. Configure Environment Variables
 
@@ -285,15 +241,11 @@ AWS_REGION=us-east-1
 AWS_MODEL_ID=your_bedrock_model
 ```
 
----
-
 ## 5. Run the Application
 
 ```bash
 streamlit run frontend_app.py
 ```
-
----
 
 # Example Workflow State
 
@@ -311,10 +263,7 @@ class State(TypedDict):
     decision: str
 ```
 
----
-
 # Multi-Agent Workflow
-
 The workflow is orchestrated using LangGraph agents:
 
 | Agent               | Responsibility            |
@@ -325,8 +274,6 @@ The workflow is orchestrated using LangGraph agents:
 | Car Analysis Agent  | Analyze damage image      |
 | Comparison Agent    | Validate and decide       |
 
----
-
 # Security & Governance
 
 * Snowflake-managed storage and governance
@@ -335,8 +282,6 @@ The workflow is orchestrated using LangGraph agents:
 * Secure Bedrock model invocation
 * No external OCR systems required
 * Centralized data processing inside Snowflake
-
----
 
 # Scalability
 
@@ -347,8 +292,6 @@ The architecture is designed to scale using:
 * Stateless workflow orchestration
 * Cloud-native managed services
 
----
-
 # Planned Enhancements
 
 * Fraud risk scoring
@@ -358,8 +301,6 @@ The architecture is designed to scale using:
 * Audit trail pipeline
 * Real-time event-driven processing
 * Model versioning and explainability
-
----
 
 # Demo Highlights
 
@@ -372,13 +313,10 @@ This project demonstrates:
 * Real-time intelligent decisioning
 * Snowflake + AWS interoperability
 
----
-
 # Maintainer
 
 Created and maintained by @thisisbhanuj
 
 For contributions, issues, or feature requests, please open a pull request or GitHub issue.
 
-```
-```
+---
