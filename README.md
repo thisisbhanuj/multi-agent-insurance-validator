@@ -12,6 +12,8 @@ The workflow combines structured document extraction, multimodal image analysis,
 
 # Architecture Overview
 
+![alt text](<Agentic AI Claim Processing Architecture.png>)
+
 The solution is designed around a multi-agent workflow architecture:
 
 - Streamlit in Snowflake provides the frontend experience
@@ -63,6 +65,9 @@ The workflow mimics how a human insurance validation team processes claims while
 | Cloud Platform | AWS + Snowflake |
 
 # Solution Workflow
+
+![alt text](<Agentic AI Claim Processing Architecture - Sequence.png>)
+
 ## 1. User Upload
 Users upload:
 
