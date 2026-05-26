@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Insurance Claim Validator",
-  description: "Multi-Agent Insurance Claim Validation System powered by Snowflake AI",
+  title: "Vehicle Insurance Claim Validator",
+  description:
+    "Automated Document Verification & Fraud Detection powered by Snowflake AI and AWS Bedrock",
 };
 
 export const viewport: Viewport = {
@@ -19,10 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-background">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={cn("bg-background", geistSans.variable, geistMono.variable)}
+    >
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }
