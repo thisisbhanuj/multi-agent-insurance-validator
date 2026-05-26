@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { IdCard, FileText, Car, LucideIcon } from "lucide-react";
 
 interface DataCardProps {
@@ -21,22 +20,23 @@ export function DataCard({ title, icon, data, fields }: DataCardProps) {
   const Icon = iconMap[icon];
 
   return (
-    <Card className="h-full">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Icon className="text-primary" />
+    <Card className="h-full card-glow gradient-border bg-card/80">
+      <CardHeader className="pb-3 border-b border-border/50">
+        <CardTitle className="flex items-center gap-3 text-base">
+          <div className="size-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Icon className="size-4 text-primary" />
+          </div>
           {title}
         </CardTitle>
       </CardHeader>
-      <Separator />
       <CardContent className="pt-4">
         <div className="flex flex-col gap-3">
           {fields.map(({ label, key }) => (
-            <div key={key} className="flex items-start gap-4">
-              <span className="text-sm text-muted-foreground min-w-24 shrink-0">
+            <div key={key} className="flex items-start justify-between gap-4">
+              <span className="text-xs text-muted-foreground uppercase tracking-wider shrink-0">
                 {label}
               </span>
-              <span className="text-sm font-medium text-foreground break-words">
+              <span className="text-sm font-medium text-foreground text-right break-words">
                 {data[key] || "—"}
               </span>
             </div>

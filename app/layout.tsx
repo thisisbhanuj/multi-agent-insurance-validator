@@ -7,13 +7,13 @@ const geistSans = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Vehicle Insurance Claim Validator",
+  title: "ClaimShield | Insurance Claim Validator",
   description:
     "Automated Document Verification & Fraud Detection powered by Snowflake AI and AWS Bedrock",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({

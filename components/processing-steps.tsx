@@ -1,8 +1,7 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { CheckCircle, Circle, Loader2, Settings } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle, Circle, Loader2 } from "lucide-react";
 import type { WorkflowStep } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -11,13 +10,33 @@ interface ProcessingStepsProps {
   isComplete: boolean;
 }
 
-const steps: { key: WorkflowStep; label: string }[] = [
-  { key: "uploading", label: "Uploading Documents" },
-  { key: "extracting_dl", label: "Extracting Driver License" },
-  { key: "extracting_claim", label: "Extracting Claim Data" },
-  { key: "analyzing_car", label: "Analyzing Car Image" },
-  { key: "comparing", label: "Comparing Data" },
-  { key: "complete", label: "Validation Complete" },
+const steps: { key: WorkflowStep; label: string; description: string }[] = [
+  {
+    key: "uploading",
+    label: "Upload",
+    description: "Uploading documents to S3",
+  },
+  {
+    key: "extracting_dl",
+    label: "License",
+    description: "Extracting driver license data",
+  },
+  {
+    key: "extracting_claim",
+    label: "Claim",
+    description: "Extracting claim form data",
+  },
+  {
+    key: "analyzing_car",
+    label: "Analysis",
+    description: "Analyzing car damage with AI",
+  },
+  { key: "comparing", label: "Compare", description: "Comparing data points" },
+  {
+    key: "complete",
+    label: "Complete",
+    description: "Validation finished",
+  },
 ];
 
 function getStepIndex(step: WorkflowStep): number {
@@ -29,53 +48,73 @@ export function ProcessingSteps({
   isComplete,
 }: ProcessingStepsProps) {
   const currentIndex = getStepIndex(currentStep);
-  const progressPercent = isComplete
-    ? 100
-    : Math.round((currentIndex / (steps.length - 1)) * 100);
 
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Settings className="text-primary" />
-          Processing Steps
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <Progress value={progressPercent} className="h-2" />
-        <div className="flex flex-col gap-2">
-          {steps.map((step, index) => {
-            const isActive = step.key === currentStep && !isComplete;
-            const isDone = index < currentIndex || isComplete;
+    <Card className="card-glow gradient-border bg-card/80 overflow-hidden">
+      <CardContent className="p-0">
+        {/* Progress bar */}
+        <div className="h-1 bg-secondary">
+          <div
+            className="h-full bg-primary transition-all duration-500 ease-out"
+            style={{
+              width: isComplete
+                ? "100%"
+                : `${(currentIndex / (steps.length - 1)) * 100}%`,
+            }}
+          />
+        </div>
 
-            return (
-              <div
-                key={step.key}
-                className={cn(
-                  "flex items-center gap-3 p-2 rounded-md transition-colors",
-                  isActive && "bg-primary/10",
-                  isDone && "text-muted-foreground"
-                )}
-              >
-                {isDone ? (
-                  <CheckCircle className="size-4 text-green-500 shrink-0" />
-                ) : isActive ? (
-                  <Loader2 className="size-4 text-primary animate-spin shrink-0" />
-                ) : (
-                  <Circle className="size-4 text-muted-foreground/50 shrink-0" />
-                )}
-                <span
-                  className={cn(
-                    "text-sm",
-                    isActive && "font-medium text-foreground",
-                    isDone && "line-through"
-                  )}
-                >
-                  {step.label}
-                </span>
-              </div>
-            );
-          })}
+        {/* Steps */}
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            {steps.map((step, index) => {
+              const isActive = step.key === currentStep && !isComplete;
+              const isDone = index < currentIndex || isComplete;
+
+              return (
+                <div key={step.key} className="flex flex-col items-center gap-2">
+                  {/* Icon */}
+                  <div
+                    className={cn(
+                      "size-10 rounded-full flex items-center justify-center transition-all duration-300",
+                      isDone && "bg-success/10",
+                      isActive && "bg-primary/10",
+                      !isDone && !isActive && "bg-secondary"
+                    )}
+                  >
+                    {isDone ? (
+                      <CheckCircle className="size-5 text-success" />
+                    ) : isActive ? (
+                      <Loader2 className="size-5 text-primary animate-spin" />
+                    ) : (
+                      <Circle className="size-5 text-muted-foreground/30" />
+                    )}
+                  </div>
+
+                  {/* Label */}
+                  <span
+                    className={cn(
+                      "text-xs font-medium transition-colors",
+                      isDone && "text-success",
+                      isActive && "text-primary",
+                      !isDone && !isActive && "text-muted-foreground/50"
+                    )}
+                  >
+                    {step.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Current step description */}
+          {!isComplete && (
+            <div className="mt-4 pt-4 border-t border-border/50 text-center">
+              <p className="text-sm text-muted-foreground">
+                {steps[currentIndex]?.description || "Processing..."}
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
